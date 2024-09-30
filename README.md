@@ -5,6 +5,8 @@
 # 更新的POC列表
 
 + 网络设备
+  - D-Link-NAS
+    * CVE-2024-3273.yaml
   - 海康威视
     * hikvision-isecure-config-properties_leak.yaml
 + 工控漏洞
