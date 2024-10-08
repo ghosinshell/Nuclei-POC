@@ -9,6 +9,7 @@
     * CVE-2024-3273.yaml
   - 海康威视
     * hikvision-isecure-config-properties_leak.yaml
+    * CVE-2021-36260.yaml
 + 工控漏洞
   - KingPortal
     * KingPortal-leaks-ConfigManager.yaml
